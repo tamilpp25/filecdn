@@ -26,8 +26,20 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     const body = req.body as UpdateBody
 
     try {
-        for (const email of body.removeEmails) {
+        await prisma.whitelist.deleteMany({
+            where: {
+                email: {
+                    in: body.removeEmails
+                }
+            }
+        })
 
+        for (const email of body.addEmails) {
+            await prisma.whitelist.create({
+                data: {
+                    email: email
+                }
+            })
         }
 
         res.status(200).json({ code: 0, is_whitelisted: true })

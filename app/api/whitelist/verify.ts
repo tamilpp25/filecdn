@@ -19,15 +19,15 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     }
 
     try {
-        prisma.whitelist.findUniqueOrThrow({
+        await prisma.whitelist.findUniqueOrThrow({
             where: {
                 email: req.query.email as string
             }
         })
 
-        res.status(200).json({code: 0, whitelisted: true})
+        res.status(200).json({ code: 0, is_whitelisted: true })
     } catch {
-        res.status(200).json({code: 0, whitelisted: false})
+        res.status(200).json({ code: 0, is_whitelisted: false })
     }
-    
+
 }
