@@ -2,9 +2,6 @@
 
 import * as React from 'react';
 import { Cloud, Github, LifeBuoy, LogOut, Moon, Sun, User } from 'lucide-react';
-import { useTheme } from 'next-themes';
-
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 export function ProfileDropdown() {
   const { data: session, status } = useSession();
@@ -35,26 +32,38 @@ export function ProfileDropdown() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem >
+          <DropdownMenuItem disabled>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem >
-          <Github className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
+        <DropdownMenuItem>
+          <a
+            href="https://github.com"
+            target="_blank"
+            className="flex flex-row items-center"
+          >
+            <Github className="mr-2 h-4 w-4" />
+            <span>GitHub</span>
+          </a>
         </DropdownMenuItem>
-        <DropdownMenuItem >
-          <LifeBuoy className="mr-2 h-4 w-4" />
-          <span>Support</span>
+        <DropdownMenuItem>
+          <a
+            href="mailto:filecdn@tamil.moe"
+            target="_blank"
+            className="flex flex-row items-center"
+          >
+            <LifeBuoy className="mr-2 h-4 w-4" />
+            <span>Support</span>
+          </a>
         </DropdownMenuItem>
-        <DropdownMenuItem disabled >
+        <DropdownMenuItem disabled>
           <Cloud className="mr-2 h-4 w-4" />
           <span>API</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem >
+        <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
