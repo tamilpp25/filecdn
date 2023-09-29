@@ -50,7 +50,11 @@ export const authOption: NextAuthOptions = {
             return true
         }
     },
-    secret: SECRET
+    secret: SECRET,
+    pages:{
+        signIn: '/signin',
+        error: '/auth/error'
+    }
 }
 
 const handler = NextAuth(authOption)

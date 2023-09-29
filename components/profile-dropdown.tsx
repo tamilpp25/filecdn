@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Cloud, Github, LifeBuoy, LogOut, Moon, Sun, User } from 'lucide-react';
+import { Cloud, Github, LifeBuoy, LogOut, User } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import { signOut, useSession } from 'next-auth/react';
+import { Badge } from './ui/badge';
 
 export function ProfileDropdown() {
   const { data: session, status } = useSession();
@@ -32,9 +33,12 @@ export function ProfileDropdown() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem disabled>
+          <DropdownMenuItem className="flex flex-row items-center">
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
+            <Badge variant="default" className="ml-auto text-bold text-white dark:text-black">
+              ADMIN
+            </Badge>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
