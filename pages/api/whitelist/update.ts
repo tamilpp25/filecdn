@@ -6,7 +6,7 @@ interface UpdateBody {
     removeEmails: string[]
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!req.headers.authorization) {
         res.status(403).json({
             code: -1,
@@ -42,7 +42,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
             })
         }
 
-        res.status(200).json({ code: 0, is_whitelisted: true })
+        res.status(200).json({ code: 0, msg: "OK" })
     } catch {
         res.status(200).json({ code: 0, is_whitelisted: false })
     }

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!req.headers.authorization) {
         res.status(403).json({
             code: -1,
@@ -18,16 +18,12 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
-    try {
-        await prisma.whitelist.findUniqueOrThrow({
-            where: {
-                email: req.query.email as string
-            }
-        })
 
-        res.status(200).json({ code: 0, is_whitelisted: true })
-    } catch {
-        res.status(200).json({ code: 0, is_whitelisted: false })
-    }
+    const whitelisted = await prisma.whitelist.findMany()
+
+    res.status(200).json({
+        code: 0,
+        whitelisted: whitelisted
+    })
 
 }

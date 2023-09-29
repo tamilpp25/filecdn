@@ -11,15 +11,15 @@ datasource db {
 }
 
 model User {
-  id     String  @id @default(uuid())
-  email  String  @unique
-  name   String?
-  avatar String?
-
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Whitelist {
-  email String @id @unique
+  email     String   @id @unique
+  createdAt DateTime @default(now())
 }
