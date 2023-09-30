@@ -4,7 +4,8 @@ import fs from "fs";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    const { id } = req.query;
+    const id = req.query.id;
+    const dl = req.query.dl;
 
     if (!id) {
         return res.status(404).json({
@@ -37,10 +38,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     }
 
-
     const fileContent = fs.createReadStream(`uploads/${file.id}.${file.name.split('.')[file.name.split('.').length - 1]}`)
 
-    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`)
-    res.setHeader("Content-Type", 'application/octet-stream')
+    if (dl && dl as string === '1') {
+        res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`)
+    }
+
+    res.setHeader("Content-Type", file.type)
     fileContent.pipe(res);
 }

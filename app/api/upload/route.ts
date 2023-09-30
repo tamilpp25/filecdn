@@ -40,13 +40,15 @@ export async function POST(req: Request) {
 	for (const entry of Array.from(data.entries())) {
 		const [filename, value] = entry;
 		const blob = value as unknown as Blob;
+		const rawFile = value as File
 		const buffer = await blob.arrayBuffer();
 
 		const file = await prisma.file.create({
 			data: {
 				name: filename,
 				size: blob.size,
-				userId: user.id
+				userId: user.id,
+				type: rawFile.type
 			}
 		})
 

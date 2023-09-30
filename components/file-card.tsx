@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 import { Clipboard } from 'lucide-react';
 import { Button } from './ui/button';
 import { RedirectType, redirect } from 'next/navigation';
+import { formatSize } from '@/lib/utils';
 
 export interface FileCardProp {
   id: string;
@@ -26,20 +26,28 @@ const FileCard = ({ file }: { file: FileCardProp }) => {
           <CardDescription>{file.name}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Size: {file.size} bytes</p>
+          <p>{formatSize(file.size)}</p>
         </CardContent>
-        <CardFooter className='flex flex-row gap-2'>
-          <Button
-            className="bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800"
-            variant={'secondary'}
-            onClick={() => redirect(`/f/${file.id}`)}
+        <CardFooter className="flex flex-row gap-2">
+          <a
+            href={`${process.env.NEXTAUTH_URL}/api/download/${file.id}/${file.name}?dl=1`}
+            target="_blank"
           >
-            Click to download file
-          </Button>
+            <Button
+              className="bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800"
+              variant={'secondary'}
+            >
+              Click to download file
+            </Button>
+          </a>
           <Button
             className="bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800"
             variant={'secondary'}
-            onClick={() => redirect(`/f/${file.id}`, RedirectType.push)}
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `${process.env.NEXTAUTH_URL!}/file/${file.id}`
+              );
+            }}
           >
             <Clipboard />
           </Button>

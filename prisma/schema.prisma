@@ -29,6 +29,7 @@ model File {
   id        String   @id @default(uuid())
   name      String
   size      BigInt
+  type      String
   uploader  User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

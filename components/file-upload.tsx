@@ -24,7 +24,7 @@ const FileUpload = () => {
       data.append(file.name, file);
     }
     try {
-      const response = await axios.post('/api/upload', data, {
+      const response = await axios.post(`/api/upload`, data, {
         onUploadProgress(e) {
           const uploadProgress = e.progress ?? 0;
           setProgress(uploadProgress * 100);
@@ -54,7 +54,7 @@ const FileUpload = () => {
   }, [responseCards, errorMessage]);
 
   return (
-    <div className="flex flex-col items-center justif py-4 h-screen w-3/5">
+    <div className="flex flex-col items-center py-4 h-screen w-3/5">
       <div
         className={`w-2/3 py-20 text-center dark:bg-zinc-900 h-max p-4 grid place-content-center text-zinc-900 dark:text-gray-200 rounded-lg border-4 border-dashed transition-colors ${
           shouldHighlight

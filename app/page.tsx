@@ -1,7 +1,8 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { Disc3Icon } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -10,8 +11,8 @@ export default function Home() {
     case 'unauthenticated':
       return (
         <div className="flex flex-col justify-center items-center gap-3 h-screen">
-          <div className='flex flex-row items-center gap-3'>
-            <Image src='/favicon.ico' alt='logo' height={65} width={65}/>
+          <div className="flex flex-row items-center gap-3">
+            <Image src="/favicon.ico" alt="logo" height={65} width={65} />
             <h1 className="text-7xl font-bold">FileCDN</h1>
           </div>
           <h2>host files in the easiest way possible!</h2>
@@ -25,7 +26,7 @@ export default function Home() {
     case 'loading':
       return (
         <div className="flex items-center justify-center h-screen">
-          <div className="animate-spin rounded-full border-t-4 border-gray-900 dark:border-white h-16 w-16"></div>
+          <Disc3Icon className="animate-spin h-10 w-10" />
         </div>
       );
 

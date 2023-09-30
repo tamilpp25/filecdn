@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma"
 
 const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID!
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET!
-const SECRET = process.env.SECRET!
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET!
 
 export const authOption: NextAuthOptions = {
     session: {
@@ -50,7 +50,7 @@ export const authOption: NextAuthOptions = {
             return true
         }
     },
-    secret: SECRET,
+    secret: NEXTAUTH_SECRET,
     pages:{
         signIn: '/signin',
         error: '/auth/error'
