@@ -58,7 +58,7 @@ export default function Navbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/status" legacyBehavior passHref>
+              <Link href="/upload" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Upload
                 </NavigationMenuLink>
@@ -78,47 +78,6 @@ export default function Navbar() {
         <div className="mx-3 flex flex-row gap-3">
           <ModeToggle />
           <ProfileDropdown />
-          {/* <div className="">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar>
-                  <AvatarImage
-                    className="w-10 h-10 rounded-full"
-                    src={session?.user?.image!}
-                  />
-                  <AvatarFallback>FC</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem className='flex flex-row items-center'>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className='flex flex-row items-center'>
-                  <Github className="mr-2 h-4 w-4" />
-                  <span>GitHub</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className='flex flex-row items-center'>
-                  <LifeBuoy className="mr-2 h-4 w-4" />
-                  <span>Support</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem disabled className='flex flex-row items-center'>
-                  <Cloud className="mr-2 h-4 w-4" />
-                  <span>API</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className='flex flex-row items-center'>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div> */}
         </div>
       </div>
     </div>
