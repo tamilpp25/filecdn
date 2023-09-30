@@ -119,11 +119,6 @@ const FileUpload = () => {
           setFileList(files);
           setShouldHighlight(false);
         }}
-        onClick={(e) => {
-          if (fileInputRef.current) {
-            fileInputRef.current.click();
-          }
-        }} 
       >
         <input
           type="file"
@@ -133,7 +128,14 @@ const FileUpload = () => {
           multiple // Add the 'multiple' attribute to accept multiple files
         />
         {!fileList ? (
-          <div className="flex flex-col items-center justify-between gap-3">
+          <div
+            className="flex flex-col items-center justify-between gap-3"
+            onClick={(e) => {
+              if (fileInputRef.current) {
+                fileInputRef.current.click();
+              }
+            }}
+          >
             <UploadIcon className="w-10 h-10" />
             <span>
               <span>Choose a File</span> or drag it here
@@ -145,7 +147,7 @@ const FileUpload = () => {
             {fileList.map((file, i) => {
               return <span key={i}>{file.name}</span>;
             })}
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-2 flex-row">
               <Button
                 className={`${
                   uploading
