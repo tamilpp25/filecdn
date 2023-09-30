@@ -38,7 +38,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     }
 
-    const fileContent = fs.createReadStream(`uploads/${file.id}.${file.name.split('.')[file.name.split('.').length - 1]}`)
+    const path = `uploads/${file.id}.${file.name.split('.')[file.name.split('.').length - 1]}`
+
+    if (!fs.existsSync(path)) {
+        res.status(404).json({
+            ok: false,
+            msg: 'File is missing'
+        })
+        return
+    }
+
+    const fileContent = fs.createReadStream(path)
 
     if (dl && dl as string === '1') {
         res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`)
