@@ -47,6 +47,13 @@ export async function POST(req: Request) {
         })
     }
 
+    if (user.id !== file.userId) {
+        return NextResponse.json({
+            ok: false,
+            msg: 'Cannot delete files by other users!'
+        })
+    }
+
     fs.unlinkSync(`uploads/${file.id}.${file.name.split('.')[file.name.split('.').length - 1]}`)
 
     return NextResponse.json({
