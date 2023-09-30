@@ -58,7 +58,6 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
   if (!file) {
     return (
       <>
-        <a>{fileInfo.id}</a>
         <Error404 />
       </>
     );

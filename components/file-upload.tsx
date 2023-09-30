@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AlertCircle, UploadIcon } from 'lucide-react';
 import axios from 'axios';
 import { Button } from './ui/button';
@@ -13,6 +13,8 @@ const FileUpload = () => {
   const [responseCards, setResponseCards] = useState<FileCardProp[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const preventDefaultHandler = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -23,6 +25,44 @@ const FileUpload = () => {
     for (let file of fileList!) {
       data.append(file.name, file);
     }
+    try {
+      const response = await axios.post(`/api/upload`, data, {
+        onUploadProgress(e) {
+          const uploadProgress = e.progress ?? 0;
+          setProgress(uploadProgress * 100);
+          if (uploadProgress * 100 >= 100) {
+            setFileList(null);
+          }
+        },
+      });
+
+      if (response.data.ok) {
+        setResponseCards(response.data.data);
+        setErrorMessage(null);
+      } else {
+        setResponseCards([]);
+        setErrorMessage(response.data.msg);
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setErrorMessage('Something went wrong.');
+    }
+  };
+
+  const handleFileInputChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = e.target.files;
+    if (!files) {
+      return;
+    }
+
+    const data = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i)!;
+      data.append(file.name, file);
+    }
+
     try {
       const response = await axios.post(`/api/upload`, data, {
         onUploadProgress(e) {
@@ -79,9 +119,21 @@ const FileUpload = () => {
           setFileList(files);
           setShouldHighlight(false);
         }}
+        onClick={(e) => {
+          if (fileInputRef.current) {
+            fileInputRef.current.click();
+          }
+        }} 
       >
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileInputChange}
+          multiple // Add the 'multiple' attribute to accept multiple files
+        />
         {!fileList ? (
-          <div className='flex flex-col items-center justify-between gap-3'>
+          <div className="flex flex-col items-center justify-between gap-3">
             <UploadIcon className="w-10 h-10" />
             <span>
               <span>Choose a File</span> or drag it here
@@ -126,7 +178,7 @@ const FileUpload = () => {
       </div>
       <div className="flex flex-col gap-3 mt-3">
         {errorMessage ? (
-          <Alert variant="destructive" className='flex flex-col w-auto'>
+          <Alert variant="destructive" className="flex flex-col w-auto">
             <AlertCircle className="h-5 w-5" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>{errorMessage}</AlertDescription>
