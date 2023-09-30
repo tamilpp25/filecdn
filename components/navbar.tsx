@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <div className="flex flex-row items-center justify-between bg-white dark:bg-black">
       <div className="flex flex-row gap-3 items-center">
-        <Link href="/">
+        <Link href="/" className='flex flex-row items-center'>
           <Image
             className="m-3"
             height={40}
@@ -47,9 +47,10 @@ export default function Navbar() {
             src="/favicon.ico"
             alt="logo"
           />
+          <a className='font-bold'>FileCDN</a>
         </Link>
         <NavigationMenu>
-          <NavigationMenuList className='flex flex-row gap-2'>
+          <NavigationMenuList className="flex flex-row gap-2">
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
