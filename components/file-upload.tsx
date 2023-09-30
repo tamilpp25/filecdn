@@ -129,7 +129,7 @@ const FileUpload = () => {
         />
         {!fileList ? (
           <div
-            className="flex flex-col items-center justify-between gap-3"
+            className="flex flex-col items-center justify-between gap-3 cursor-pointer"
             onClick={(e) => {
               if (fileInputRef.current) {
                 fileInputRef.current.click();
