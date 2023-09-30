@@ -17,9 +17,21 @@ model User {
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  File      File[]
 }
 
 model Whitelist {
   email     String   @id @unique
   createdAt DateTime @default(now())
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  size      BigInt
+  uploader  User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
 }
