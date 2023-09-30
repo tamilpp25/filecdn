@@ -1,6 +1,5 @@
 'use client'
 import axios from 'axios';
-import prisma from './prisma'
 
 export const getFileInfo = async (fileId: string): Promise<any> => {
     try {

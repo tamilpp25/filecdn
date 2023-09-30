@@ -17,6 +17,8 @@ import { FileInfo } from './file-download';
 import { CommandItem } from 'cmdk';
 import { File } from 'lucide-react';
 import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export interface FileSearchContextProp {
   fileInfo: FileInfo;
@@ -24,6 +26,17 @@ export interface FileSearchContextProp {
 
 export function FileSearchContext(context: FileSearchContextProp) {
   const file = context.fileInfo;
+
+  function handleDelete() {
+    axios.post(`/api/file/delete`, {
+      id: file.id
+    }).then(e => {
+      if (e.data && e.data.ok) {
+        console.log('Delete success')
+        window.location.reload()
+      }
+    })
+  }
 
   return (
     <ContextMenuContent className="w-52">
@@ -34,7 +47,7 @@ export function FileSearchContext(context: FileSearchContextProp) {
         View
         <ContextMenuShortcut>⌘[</ContextMenuShortcut>
       </ContextMenuItem>
-      <ContextMenuItem inset disabled>
+      <ContextMenuItem inset onClick={handleDelete}>
         Delete
         <ContextMenuShortcut>⌘]</ContextMenuShortcut>
       </ContextMenuItem>
