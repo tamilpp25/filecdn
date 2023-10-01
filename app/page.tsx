@@ -24,11 +24,13 @@ export default function Home() {
             <Image src="/favicon.png" alt="logo" height={65} width={65} />
             <h1 className="text-7xl font-bold">FileCDN</h1>
           </div>
-          <h2>host files in the easiest way possible!</h2>
-          <h1 className="text-center text-3xl text-indigo-500">
-            You are not logged in!
+          <h2 className="text-lg">Host and share files easily!</h2>
+          <h1 className="text-center text-2xl">
+            Authentication is required to access further content!
           </h1>
-          <Button onClick={() => signIn()}>Login</Button>
+          <Button className="h-auto w-36 text-base" onClick={() => signIn()}>
+            Login
+          </Button>
         </div>
       );
 
@@ -52,9 +54,7 @@ export default function Home() {
               <div className="flex flex-col gap-3 h-auto py-2">
                 <Card className="items-center text-center py-5 flex flex-col gap-2">
                   <div className="flex flex-col gap-3 items-center">
-                    <h1 className="text-center text-3xl">
-                      Welcome back
-                    </h1>
+                    <h1 className="text-center text-3xl">Welcome back</h1>
                     <p className="text-center">{session.user!.name}!</p>
                     <Button onClick={() => signOut()}>Logout</Button>
                   </div>

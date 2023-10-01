@@ -1,6 +1,7 @@
-import { redirect, RedirectType } from 'next/navigation';
+'use client';
 import { Button } from './ui/button';
-import { Clipboard, CloudIcon, Disc, Disc3Icon, Download } from 'lucide-react';
+import Image from 'next/image';
+import { Clipboard, Disc3Icon, Download } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -12,8 +13,8 @@ import {
 import { useEffect, useState } from 'react'; // Import useEffect and useState
 import Error404 from './404';
 import { getFileInfo } from '@/lib/fetch-file';
-import Link from 'next/link';
 import { formatSize } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export interface FileDownloadProp {
   id: string;
@@ -27,6 +28,7 @@ export interface FileInfo {
 }
 
 const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
+  const router = useRouter();
   const [file, setFile] = useState<FileInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
@@ -65,9 +67,21 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
 
   return (
     <div className="gap-3 h-screen w-screen items-center flex flex-col justify-center">
-      <div className="flex flex-col items-center">
-        <div className="flex flex-row items-center gap-4">
-          <CloudIcon className="h-16 w-16" />
+      <div className="flex flex-col items-center gap-[7px]">
+        <div
+          className="flex flex-row items-center gap-4 cursor-pointer"
+          onClick={() => {
+            router.push('/');
+          }}
+        >
+          {/* <CloudIcon className="h-16 w-16" /> */}
+          <Image
+            className="flex flex-col mx-auto"
+            src="/favicon.png"
+            width={50}
+            height={50}
+            alt="logo"
+          />
           <h1 className="text-5xl">FileCDN</h1>
         </div>
         <h2 className="text-gray-500">Host and share files easily!</h2>
@@ -78,7 +92,10 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
           <CardDescription>{formatSize(file.size)}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-3">
-          <a href={`${process.env.NEXTAUTH_URL}/api/download/${file.id}/${file.name}?dl=1`} target='_blank'>
+          <a
+            href={`${process.env.NEXTAUTH_URL}/api/download/${file.id}/${file.name}?dl=1`}
+            target="_blank"
+          >
             <Button
               className="flex flex-row items-center gap-2 bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800"
               variant={'secondary'}
