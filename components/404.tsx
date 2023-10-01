@@ -14,7 +14,7 @@ const Error404 = () => {
             className="m-3"
             height={50}
             width={50}
-            src="/favicon.png"
+            src="/favicon.ico"
             alt="logo"
           />
           <a className="font-bold text-5xl">FileCDN</a>
