@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react'; // Import useEffect and useState
 import Error404 from './404';
 import { getFileInfo } from '@/lib/fetch-file';
 import { formatSize } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 
 export interface FileDownloadProp {
   id: string;
@@ -27,43 +27,43 @@ export interface FileInfo {
   size: string;
 }
 
-const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
-  const router = useRouter();
-  const [file, setFile] = useState<FileInfo | null>(null);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+const FileDownload = ({ file }: { file: FileInfo }) => {
+  // const router = useRouter();
+  // const [file, setFile] = useState<FileInfo | null>(null);
+  // const [isLoading, setIsLoading] = useState(true); // Add loading state
 
-  useEffect(() => {
-    // Fetch file data asynchronously when the component mounts
-    const fetchFileData = async () => {
-      try {
-        const fetchedFile = await getFileInfo(fileInfo.id);
-        setFile(fetchedFile.data);
-      } catch (error) {
-        console.error('Error fetching file data:', error);
-      } finally {
-        setIsLoading(false); // Set loading state to false regardless of success or error
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch file data asynchronously when the component mounts
+  //   const fetchFileData = async () => {
+  //     try {
+  //       const fetchedFile = await getFileInfo(fileInfo.id);
+  //       setFile(fetchedFile.data);
+  //     } catch (error) {
+  //       console.error('Error fetching file data:', error);
+  //     } finally {
+  //       setIsLoading(false); // Set loading state to false regardless of success or error
+  //     }
+  //   };
 
-    fetchFileData();
-    // fetchFromDb(fileInfo.id);
-  }, [fileInfo.id]);
+  //   fetchFileData();
+  //   // fetchFromDb(fileInfo.id);
+  // }, [fileInfo.id]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Disc3Icon className="animate-spin h-10 w-10" />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <Disc3Icon className="animate-spin h-10 w-10" />
+  //     </div>
+  //   );
+  // }
 
-  if (!file) {
-    return (
-      <>
-        <Error404 />
-      </>
-    );
-  }
+  // if (!file) {
+  //   return (
+  //     <>
+  //       <Error404 />
+  //     </>
+  //   );
+  // }
 
   return (
     <div className="gap-3 h-screen w-screen items-center flex flex-col justify-center">
@@ -71,7 +71,7 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
         <div
           className="flex flex-row items-center gap-4 cursor-pointer"
           onClick={() => {
-            router.push('/');
+            redirect('/');
           }}
         >
           {/* <CloudIcon className="h-16 w-16" /> */}
@@ -109,7 +109,7 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
             variant={'secondary'}
             onClick={() => {
               navigator.clipboard.writeText(
-                `${process.env.NEXTAUTH_URL!}/file/${file.id}`
+                `${process.env.NEXTAUTH_URL!}/f/${file.id}`
               );
             }}
           >

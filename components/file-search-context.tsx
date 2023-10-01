@@ -42,7 +42,7 @@ export function FileSearchContext(context: FileSearchContextProp) {
       <ContextMenuItem
         inset
         onClick={() => {
-          router.push(`/file/${file.id}`);
+          router.push(`/f/${file.id}`);
         }}
       >
         <span>View</span>

@@ -16,7 +16,7 @@ export default function DownloadPage() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <FileDownload fileInfo={{ id: param.file as string }} />
+      {/* <FileDownload fileInfo={{ id: param.file as string }} /> */}
     </div>
   );
 }
