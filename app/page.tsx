@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/card';
 import { CloudIcon, Disc3Icon } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { redirect } from 'next/dist/server/api-utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -22,7 +21,7 @@ export default function Home() {
       return (
         <div className="flex flex-col justify-center items-center gap-3 h-screen">
           <div className="flex flex-row items-center gap-3">
-            <Image src="/favicon.ico" alt="logo" height={65} width={65} />
+            <Image src="/favicon.png" alt="logo" height={65} width={65} />
             <h1 className="text-7xl font-bold">FileCDN</h1>
           </div>
           <h2>host files in the easiest way possible!</h2>

@@ -43,8 +43,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         res.status(200).json({ code: 0, msg: "OK" })
-    } catch {
-        res.status(200).json({ code: 0, is_whitelisted: false })
+    } catch (e) {
+        res.status(500).json({ code: 0, msg: "Internal Server Error", err: e })
     }
 
 }

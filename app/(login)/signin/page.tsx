@@ -20,7 +20,7 @@ export default function SignIn() {
             <div className="title flex flex-col items-center">
               <Image
                 className="flex flex-col mx-auto"
-                src="/favicon.ico"
+                src="/favicon.png"
                 width={50}
                 height={50}
                 alt="logo"
