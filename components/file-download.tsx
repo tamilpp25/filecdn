@@ -19,7 +19,7 @@ export interface FileDownloadProp {
   id: string;
 }
 
-interface FileInfo {
+export interface FileInfo {
   name: string;
   id: string;
   createdAt: Date;
