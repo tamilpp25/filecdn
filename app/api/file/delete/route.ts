@@ -1,5 +1,3 @@
-
-
 import { NextResponse } from "next/server";
 import fs from "fs";
 import prisma from "@/lib/prisma";

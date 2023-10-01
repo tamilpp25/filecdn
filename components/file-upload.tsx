@@ -49,48 +49,9 @@ const FileUpload = () => {
     }
   };
 
-  const handleFileInputChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const files = e.target.files;
-    if (!files) {
-      return;
-    }
-
-    const data = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i)!;
-      data.append(file.name, file);
-    }
-
-    try {
-      const response = await axios.post(`/api/upload`, data, {
-        onUploadProgress(e) {
-          const uploadProgress = e.progress ?? 0;
-          setProgress(uploadProgress * 100);
-          if (uploadProgress * 100 >= 100) {
-            setFileList(null);
-          }
-        },
-      });
-
-      if (response.data.ok) {
-        setResponseCards(response.data.data);
-        setErrorMessage(null);
-      } else {
-        setResponseCards([]);
-        setErrorMessage(response.data.msg);
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      setErrorMessage('Something went wrong.');
-    }
-  };
-
   const uploading = progress > 0 && progress < 100;
 
   useEffect(() => {
-    // You can add any additional logic here if needed
   }, [responseCards, errorMessage]);
 
   return (
@@ -124,7 +85,15 @@ const FileUpload = () => {
           type="file"
           ref={fileInputRef}
           style={{ display: 'none' }}
-          onChange={handleFileInputChange}
+          onChange={(e) => {
+            if (!e.target.files) {
+              return;
+            }
+
+            const files = Array.from(e.target.files)
+            setFileList(files);
+            setShouldHighlight(false)
+          }}
           multiple // Add the 'multiple' attribute to accept multiple files
         />
         {!fileList ? (
@@ -147,7 +116,7 @@ const FileUpload = () => {
             {fileList.map((file, i) => {
               return <span key={i}>{file.name}</span>;
             })}
-            <div className="flex gap-2 mt-2 flex-row">
+            <div className="flex gap-2 mt-2 flex-row justify-center">
               <Button
                 className={`${
                   uploading
