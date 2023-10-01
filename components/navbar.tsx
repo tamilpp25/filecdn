@@ -44,7 +44,7 @@ export default function Navbar() {
             className="m-3"
             height={40}
             width={40}
-            src="/favicon.ico"
+            src="/assets/logo.png"
             alt="logo"
           />
           <a className='font-bold'>FileCDN</a>

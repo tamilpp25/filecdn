@@ -77,7 +77,7 @@ const FileDownload = ({ fileInfo }: { fileInfo: FileDownloadProp }) => {
           {/* <CloudIcon className="h-16 w-16" /> */}
           <Image
             className="flex flex-col mx-auto"
-            src="/favicon.ico"
+            src="/assets/logo.png"
             width={50}
             height={50}
             alt="logo"

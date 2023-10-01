@@ -21,7 +21,7 @@ export default function Home() {
       return (
         <div className="flex flex-col justify-center items-center gap-3 h-screen">
           <div className="flex flex-row items-center gap-3">
-            <Image src="/favicon.ico" alt="logo" height={50} width={50} />
+            <Image src="/assets/logo.png" alt="logo" height={50} width={50} />
             <h1 className="text-6xl font-bold">FileCDN</h1>
           </div>
           <h2 className="text-lg text-zinc-900 dark:text-zinc-400">Host and share files easily!</h2>
