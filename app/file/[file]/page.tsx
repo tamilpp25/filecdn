@@ -1,37 +1,41 @@
 import Error404 from '@/components/404';
 import FileDownload, { FileInfo } from '@/components/file-download';
+import prisma from '@/lib/prisma';
 
-export default async function DownloadPage(params: { params: { file: string } }) {
+interface DownloadPageProps {
+  params: {
+    file: string;
+  }
+}
 
-  if (!params.params) {
+export default async function DownloadPage({ params }: DownloadPageProps) {
+
+  if (!params.file) {
     return (
       <Error404 />
     );
   }
 
-  const res = (await fetch(`${process.env.NEXTAUTH_URL}/api/file/fetch?id=${params.params.file}`));
+  const file = await prisma.file.findUnique({
+    where: {
+      id: params.file
+    }
+  })
 
-  if (!res.ok) {
-    return (
-      <Error404 />
-    )
+  if (!file) {
+    return <Error404 /> 
   }
-
-  const data = await res.json()
-
-  if (!data.ok) {
-    return (
-      <Error404 />
-    )
-  }
-
-  const fileInfo = data.data as FileInfo
 
   return (
     <div className="flex items-center justify-center h-screen">
       {/* <FileDownload fileInfo={file} /> */}
       {/* <div>{JSON.stringify(fileInfo)}</div> */}
-      <FileDownload file={fileInfo} />
+      <FileDownload file={{
+        createdAt: file.createdAt,
+        id: file.id,
+        name: file.name,
+        size: file.size.toString()
+      }} />
     </div>
   );
 }

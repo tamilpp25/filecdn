@@ -25,42 +25,6 @@ export interface FileInfo {
 }
 
 const FileDownload = ({ file }: { file: FileInfo }) => {
-  // const router = useRouter();
-  // const [file, setFile] = useState<FileInfo | null>(null);
-  // const [isLoading, setIsLoading] = useState(true); // Add loading state
-
-  // useEffect(() => {
-  //   // Fetch file data asynchronously when the component mounts
-  //   const fetchFileData = async () => {
-  //     try {
-  //       const fetchedFile = await getFileInfo(fileInfo.id);
-  //       setFile(fetchedFile.data);
-  //     } catch (error) {
-  //       console.error('Error fetching file data:', error);
-  //     } finally {
-  //       setIsLoading(false); // Set loading state to false regardless of success or error
-  //     }
-  //   };
-
-  //   fetchFileData();
-  //   // fetchFromDb(fileInfo.id);
-  // }, [fileInfo.id]);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen">
-  //       <Disc3Icon className="animate-spin h-10 w-10" />
-  //     </div>
-  //   );
-  // }
-
-  // if (!file) {
-  //   return (
-  //     <>
-  //       <Error404 />
-  //     </>
-  //   );
-  // }
 
   return (
     <div className="gap-3 h-screen w-screen items-center flex flex-col justify-center">
