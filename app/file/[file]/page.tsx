@@ -1,22 +1,37 @@
-'use client';
 import Error404 from '@/components/404';
-import FileDownload from '@/components/file-download';
-import { useParams } from 'next/navigation';
+import FileDownload, { FileInfo } from '@/components/file-download';
 
-export default function DownloadPage() {
-  const param = useParams();
+export default async function DownloadPage(params: { params: { file: string } }) {
 
-  if (!param) {
+  if (!params.params) {
     return (
-      <>
-        <Error404 />
-      </>
+      <Error404 />
     );
   }
 
+  const res = (await fetch(`${process.env.NEXTAUTH_URL}/api/file/fetch?id=${params.params.file}`));
+
+  if (!res.ok) {
+    return (
+      <Error404 />
+    )
+  }
+
+  const data = await res.json()
+
+  if (!data.ok) {
+    return (
+      <Error404 />
+    )
+  }
+
+  const fileInfo = data.data as FileInfo
+
   return (
     <div className="flex items-center justify-center h-screen">
-      {/* <FileDownload fileInfo={{ id: param.file as string }} /> */}
+      {/* <FileDownload fileInfo={file} /> */}
+      {/* <div>{JSON.stringify(fileInfo)}</div> */}
+      <FileDownload file={fileInfo} />
     </div>
   );
 }

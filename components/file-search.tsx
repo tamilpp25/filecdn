@@ -43,7 +43,7 @@ export default function FileSearch() {
                 return (
                   <a
                     key={e.id}
-                    href={`${process.env.NEXTAUTH_URL}/f/${e.id}`}
+                    href={`${process.env.NEXTAUTH_URL}/file/${e.id}`}
                   >
                     <ContextMenu>
                       <ContextMenuTrigger>

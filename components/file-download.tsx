@@ -1,7 +1,7 @@
 'use client';
 import { Button } from './ui/button';
 import Image from 'next/image';
-import { Clipboard, Disc3Icon, Download } from 'lucide-react';
+import { Clipboard, Download } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -10,11 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
-import { useEffect, useState } from 'react'; // Import useEffect and useState
-import Error404 from './404';
-import { getFileInfo } from '@/lib/fetch-file';
 import { formatSize } from '@/lib/utils';
-import { useRouter, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export interface FileDownloadProp {
   id: string;
@@ -70,11 +67,8 @@ const FileDownload = ({ file }: { file: FileInfo }) => {
       <div className="flex flex-col items-center gap-[7px]">
         <div
           className="flex flex-row items-center gap-4 cursor-pointer"
-          onClick={() => {
-            redirect('/');
-          }}
+          onClick={() => redirect('/')}
         >
-          {/* <CloudIcon className="h-16 w-16" /> */}
           <Image
             className="flex flex-col mx-auto"
             src="/assets/logo.png"
@@ -109,7 +103,7 @@ const FileDownload = ({ file }: { file: FileInfo }) => {
             variant={'secondary'}
             onClick={() => {
               navigator.clipboard.writeText(
-                `${process.env.NEXTAUTH_URL!}/f/${file.id}`
+                `${process.env.NEXTAUTH_URL!}/file/${file.id}`
               );
             }}
           >
