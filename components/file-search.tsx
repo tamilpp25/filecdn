@@ -1,4 +1,4 @@
-import { File, Trash2Icon, Link2Icon } from 'lucide-react';
+import { File } from 'lucide-react';
 
 import {
   Command,
@@ -8,28 +8,16 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from '@/components/ui/command';
 import { FileInfo } from './file-download';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FileSearchContext } from './file-search-context';
 import { ContextMenu, ContextMenuTrigger } from './ui/context-menu';
-import { Skeleton } from './ui/skeleton';
 
-export default function FileSearch() {
-  const [files, setFiles] = useState<FileInfo[] | []>([]);
+export interface FileSearchProps {
+  files: FileInfo[]
+}
 
-  useEffect(() => {
-    async function runAsync() {
-      const data = await axios.get('/api/file/fetchAll');
-      if (data) {
-        setFiles((await data).data.data as FileInfo[]);
-      }
-    }
-
-    runAsync();
-  }, []);
+export default function FileSearch({ files }: FileSearchProps) {
 
   return (
     <Command className="rounded-lg border shadow-md">
@@ -52,7 +40,7 @@ export default function FileSearch() {
                           <span className="">{e.name}</span>
                         </CommandItem>
                       </ContextMenuTrigger>
-											<FileSearchContext fileInfo={e}/>
+                      <FileSearchContext fileInfo={e} />
                     </ContextMenu>
                   </a>
                 );
