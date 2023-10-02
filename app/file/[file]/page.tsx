@@ -1,6 +1,8 @@
 import Error404 from '@/components/404';
 import FileDownload, { FileInfo } from '@/components/file-download';
 import prisma from '@/lib/prisma';
+import { formatSize } from '@/lib/utils';
+import { Metadata } from 'next';
 
 interface DownloadPageProps {
   params: {
@@ -8,12 +10,33 @@ interface DownloadPageProps {
   }
 }
 
+export async function generateMetadata({ params }: DownloadPageProps): Promise<Metadata> {
+
+  if (!params.file) return {};
+
+  const file = await prisma.file.findUnique({
+    where: {
+      id: params.file
+    }
+  })
+
+  if (!file) return {}
+
+  return {
+    title: `${file.name} - FileCDN`,
+    openGraph: {
+      title: `${file.name} - FileCDN`,
+      description: `${formatSize(file.size.toString())} file
+      Host and share files easily!`,
+      url: `${process.env.NEXTAUTH_URL}/file/${file.id}`,
+    },
+  }
+}
+
 export default async function DownloadPage({ params }: DownloadPageProps) {
 
   if (!params.file) {
-    return (
-      <Error404 />
-    );
+    return <Error404 />
   }
 
   const file = await prisma.file.findUnique({
@@ -23,7 +46,7 @@ export default async function DownloadPage({ params }: DownloadPageProps) {
   })
 
   if (!file) {
-    return <Error404 /> 
+    return <Error404 />
   }
 
   return (
