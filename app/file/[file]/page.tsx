@@ -1,5 +1,5 @@
 import Error404 from '@/components/404';
-import FileDownload, { FileInfo } from '@/components/file-download';
+import FileDownload from '@/components/file-download';
 import prisma from '@/lib/prisma';
 import { formatSize } from '@/lib/utils';
 import { Metadata } from 'next';
