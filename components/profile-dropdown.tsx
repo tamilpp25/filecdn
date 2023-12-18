@@ -44,7 +44,7 @@ export function ProfileDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <a
-            href="https://github.com"
+            href="https://github.com/tamilpp25/filecdn"
             target="_blank"
             className="flex flex-row items-center"
           >
@@ -54,7 +54,7 @@ export function ProfileDropdown() {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <a
-            href="mailto:filecdn@tamil.moe"
+            href="mailto:info@tamil.moe"
             target="_blank"
             className="flex flex-row items-center"
           >

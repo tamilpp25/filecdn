@@ -14,19 +14,6 @@ import {
 import { useSession } from 'next-auth/react';
 import { ModeToggle } from './theme_toggle';
 import Image from 'next/image';
-import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-} from '@radix-ui/react-dropdown-menu';
-import { User, Github, LifeBuoy, Cloud, LogOut } from 'lucide-react';
-import { DropdownMenuShortcut } from './ui/dropdown-menu';
-import { Button } from './ui/button';
 import { ProfileDropdown } from './profile-dropdown';
 
 export default function Navbar() {
