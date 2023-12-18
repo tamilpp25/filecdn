@@ -39,5 +39,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Prisma ORM](https://prisma.io/)
 - [NextAuth.js](https://next-auth.js.org/)
-- [Prisma ORM](https://prisma.io/)
 - [shadcn](https://ui.shadcn.com/)
